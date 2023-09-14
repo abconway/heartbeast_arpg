@@ -1,24 +1,24 @@
 extends CharacterBody2D
 class_name Player
 
-@export var acceleration := 25
-@export var friction := 50
-@export var max_speed := 150
+@export var acceleration := 800
+@export var max_speed := 80
+
+@onready var animation_player := $AnimationPlayer
+@onready var animation_tree := $AnimationTree
+@onready var animation_state = animation_tree.get("parameters/playback")
 
 
 func _physics_process(delta: float) -> void:
+	# Input.get_vector returns a normalized vector
 	var input_vector := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	input_vector = input_vector.normalized()
 	
-	if input_vector.x != 0:
-		velocity.x += input_vector.x * acceleration * delta
-		velocity.x = clampf(velocity.x, -max_speed * delta * abs(input_vector.x), max_speed * delta * abs(input_vector.x))
+	if input_vector != Vector2.ZERO:
+		animation_tree.set("parameters/Idle/blend_position", input_vector)
+		animation_tree.set("parameters/Run/blend_position", input_vector)
+		animation_state.travel("Run")
 	else:
-		velocity.x = velocity.move_toward(Vector2.ZERO, friction * delta).x
-	if input_vector.y != 0:
-		velocity.y += input_vector.y * acceleration * delta
-		velocity.y = clampf(velocity.y, -max_speed * delta * abs(input_vector.y), max_speed * delta * abs(input_vector.y))
-	else:
-		velocity.y = velocity.move_toward(Vector2.ZERO, friction * delta).y
+		animation_state.travel("Idle")
 	
-	move_and_collide(velocity)
+	velocity = velocity.move_toward(input_vector * max_speed, acceleration * delta)
+	move_and_slide()

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbwtciv8t4jyf"]
+
+[ext_resource type="Texture2D" uid="uid://bdmjvfooo003d" path="res://World/Bush.png" id="1_e2lax"]
+[ext_resource type="Texture2D" uid="uid://b4x8kou7r53ng" path="res://Player/Player.png" id="2_0t8t7"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="2_a827e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y2llv"]
+radius = 4.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvihm"]
+radius = 8.0
+height = 26.0
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(58, 89)
+script = ExtResource("2_a827e")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture_filter = 1
+texture = ExtResource("2_0t8t7")
+hframes = 60
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_y2llv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(103, 44)
+
+[node name="Bush" type="Sprite2D" parent="StaticBody2D"]
+texture_filter = 1
+texture = ExtResource("1_e2lax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pvihm")
