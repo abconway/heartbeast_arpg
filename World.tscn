@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbwtciv8t4jyf"]
+[gd_scene load_steps=11 format=3 uid="uid://bbwtciv8t4jyf"]
 
 [ext_resource type="Texture2D" uid="uid://c51wf2wattd5a" path="res://World/GrassBackground.png" id="1_cupdn"]
 [ext_resource type="PackedScene" uid="uid://cc2tfwdo2ugk0" path="res://Player/Player.tscn" id="1_yk8yk"]
 [ext_resource type="Texture2D" uid="uid://bry4r1b6k6ds4" path="res://World/DirtTileset.png" id="2_7fc1v"]
 [ext_resource type="PackedScene" uid="uid://hxt5xf77ua3w" path="res://World/Bush.tscn" id="2_msmma"]
 [ext_resource type="Texture2D" uid="uid://bp8nd4vjjtuh3" path="res://World/CliffTileset.png" id="3_r5881"]
+[ext_resource type="PackedScene" uid="uid://bwl7fdummi4ra" path="res://World/Grass.tscn" id="6_6c21h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pnq3p"]
 texture = ExtResource("2_7fc1v")
@@ -851,22 +852,49 @@ y_sort_enabled = true
 [node name="Player" parent="YSort" instance=ExtResource("1_yk8yk")]
 position = Vector2(152, 80)
 
-[node name="Bush" parent="YSort" instance=ExtResource("2_msmma")]
+[node name="Bushes" type="Node2D" parent="YSort"]
+y_sort_enabled = true
+
+[node name="Bush" parent="YSort/Bushes" instance=ExtResource("2_msmma")]
 position = Vector2(72, 72)
 metadata/_edit_group_ = true
 
-[node name="Bush2" parent="YSort" instance=ExtResource("2_msmma")]
+[node name="Bush2" parent="YSort/Bushes" instance=ExtResource("2_msmma")]
 position = Vector2(240, 32)
 metadata/_edit_group_ = true
 
-[node name="Bush3" parent="YSort" instance=ExtResource("2_msmma")]
+[node name="Bush3" parent="YSort/Bushes" instance=ExtResource("2_msmma")]
 position = Vector2(224, 128)
 metadata/_edit_group_ = true
 
-[node name="Bush4" parent="YSort" instance=ExtResource("2_msmma")]
+[node name="Bush4" parent="YSort/Bushes" instance=ExtResource("2_msmma")]
 position = Vector2(104, 144)
 metadata/_edit_group_ = true
 
-[node name="Bush5" parent="YSort" instance=ExtResource("2_msmma")]
+[node name="Bush5" parent="YSort/Bushes" instance=ExtResource("2_msmma")]
 position = Vector2(128, 24)
 metadata/_edit_group_ = true
+
+[node name="Grass" type="Node2D" parent="YSort"]
+y_sort_enabled = true
+
+[node name="Grass" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(0, 144)
+
+[node name="Grass2" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(16, 144)
+
+[node name="Grass3" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(32, 144)
+
+[node name="Grass4" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(192, 112)
+
+[node name="Grass5" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(192, 128)
+
+[node name="Grass6" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(144, 16)
+
+[node name="Grass7" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
+position = Vector2(160, 16)
