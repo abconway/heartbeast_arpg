@@ -879,13 +879,13 @@ metadata/_edit_group_ = true
 y_sort_enabled = true
 
 [node name="Grass" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
-position = Vector2(0, 144)
+position = Vector2(8, 136)
 
 [node name="Grass2" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
-position = Vector2(16, 144)
+position = Vector2(24, 136)
 
 [node name="Grass3" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
-position = Vector2(32, 144)
+position = Vector2(40, 136)
 
 [node name="Grass4" parent="YSort/Grass" instance=ExtResource("6_6c21h")]
 position = Vector2(192, 112)

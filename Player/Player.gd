@@ -3,10 +3,12 @@ class_name Player
 
 @export var acceleration := 800
 @export var max_speed := 80
+@export var roll_speed := 120
 
 @onready var animation_player := $AnimationPlayer
 @onready var animation_tree := $AnimationTree
 @onready var animation_state = animation_tree.get("parameters/playback")
+@onready var collision_shape_2d: CollisionShape2D = $Marker2D/Area2D/CollisionShape2D
 
 enum states {
 	MOVE,
@@ -14,10 +16,12 @@ enum states {
 	ATTACK,
 }
 var state: states = states.MOVE
+var roll_vector: Vector2 = Vector2.LEFT
 
 
 func _ready() -> void:
 	animation_tree.active = true
+	collision_shape_2d.disabled = true
 
 
 func _physics_process(delta: float) -> void:
@@ -25,7 +29,7 @@ func _physics_process(delta: float) -> void:
 		states.MOVE:
 			move_state(delta)
 		states.ROLL:
-			pass
+			roll_state(delta)
 		states.ATTACK:
 			attack_state(delta)
 
@@ -46,6 +50,8 @@ func move_state(delta: float) -> void:
 		animation_tree.set("parameters/Idle/blend_position", input_vector)
 		animation_tree.set("parameters/Run/blend_position", input_vector)
 		animation_tree.set("parameters/Attack/blend_position", input_vector)
+		animation_tree.set("parameters/Roll/blend_position", input_vector)
+		roll_vector = input_vector
 		animation_state.travel("Run")
 	else:
 		animation_state.travel("Idle")
@@ -55,3 +61,16 @@ func move_state(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("player_attack"):
 		state = states.ATTACK
+	elif Input.is_action_just_pressed("player_roll"):
+		state = states.ROLL
+
+
+func roll_state(delta: float) -> void:
+	animation_state.travel("Roll")
+	velocity = roll_vector * roll_speed
+	move_and_slide()
+
+
+func roll_animation_finished() -> void:
+	state = states.MOVE
+	velocity = roll_vector * max_speed
